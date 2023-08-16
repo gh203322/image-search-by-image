@@ -1,6 +1,5 @@
-<center>🌘 一种基于图向量和向量数据库的图片搜索引擎。</center>  
 <div style="text-align: center;">
-  <p align="center" style="font-size: 24px;">居中显示的文字</p>
+  <p align="center" style="font-size: 32px;">🌘 一种基于图向量和向量数据库的图片搜索引擎。</p>
 </div>
 
 ![](img/logo.png)
