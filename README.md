@@ -1,5 +1,5 @@
 🌘 一种基于图向量和向量数据库的图片搜索引擎。  
-<img src="img/logo.png" alt="Logo" width="1032" height="266">
+![](img/logo.png)
 
 --- 
 
