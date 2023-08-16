@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-  <p align="center" style="font-size: 32px;">🌘 一种基于图向量和向量数据库的图片搜索引擎。</p>
+  <p align="center" style="font-size: 32px;">**🌘 一种基于图向量和向量数据库的图片搜索引擎。**</p>
 </div>
 
 ![](img/logo.png)
