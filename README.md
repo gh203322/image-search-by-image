@@ -1,4 +1,5 @@
-**bogv-image-search-engine** 一种基于图向量和向量数据库的图片搜索引擎。
+**bogv-image-search-engine** 一种基于图向量和向量数据库的图片搜索引擎。  
+
 <img src="img/logo.png" alt="Logo" width="256" height="256">
 
 --- 
