@@ -1,5 +1,7 @@
 🌘 一种基于图向量和向量数据库的图片搜索引擎。  
-<img src="img/logo.png" alt="Logo" width="256" height="256">
+<div style="text-align: center;">
+  <img src="img/logo.png" alt="Logo" style="max-width: 100%; height: auto;">
+</div>o
 
 --- 
 
