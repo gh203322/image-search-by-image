@@ -1,4 +1,4 @@
-![](img/logo.png)
+<img src="img/log.png" alt="Logo" width="256" height="256">
 
 **bogv-image-search-engine** 一种基于图向量和向量数据库的图片搜索引擎。
 
