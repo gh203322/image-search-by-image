@@ -87,7 +87,7 @@ services:
     image: registry.cn-chengdu.aliyuncs.com/mrrobot_public/bogv-base:1.1
     restart: always
     ports:
-      - "11090:7000"
+      - "7000:7000"
     volumes:
       - /etc/localtime:/etc/localtime
       - ./:/app
@@ -212,7 +212,7 @@ POST /api/image/sim/add/file
 | `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
 | `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-### 请求返回  
+### request return   
 sucess return
 ```http
 {
@@ -235,7 +235,7 @@ fail return
 ```http
 POST /api/image/sim/add/url
 ```
-### describes
+### describes  
 通过图片url地址的方式上传图片到文件搜索系统.
 
 ### request params
@@ -245,7 +245,7 @@ POST /api/image/sim/add/url
 | `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
 | `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-### 请求返回  
+### request return  
 sucess return
 ```http
 {
@@ -278,7 +278,7 @@ POST /api/image/sim/add/path
 | `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
 | `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-### 请求返回  
+### request return    
 sucess return
 ```http
 {
@@ -310,7 +310,7 @@ POST /api/image/sim/search/file
 | `file`  | File   | Yes      | 待搜索的目标图片文件，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### 请求返回  
+### request return  
 sucess return
 ```http
 {
@@ -342,7 +342,7 @@ POST /api/image/sim/search/url
 | `url`  | String   | Yes      | 图片的url地址，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### 请求返回  
+### request return  
 sucess return
 ```http
 {
@@ -374,7 +374,7 @@ POST /api/image/sim/search/path
 | `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### 请求返回  
+### request return  
 sucess return
 ```http
 {
@@ -406,7 +406,7 @@ POST /api/image/sim/search/base64
 | `base64`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### 请求返回  
+### request return  
 sucess return
 ```http
 {
@@ -437,7 +437,7 @@ POST /api/image/sim/del
 |-----------|----------|----------|---------------------------|
 | `id`  | String   | Yes      | 检索返回的图片的ID字段，多个ID用英文逗号分隔，如：1,2,3，必要参数.    |
 
-### 请求返回  
+### request return  
 sucess return
 ```http
 {
