@@ -21,7 +21,7 @@
 ##  使用
 ### Docker 部署 
 
-1、通过已有的基础镜像启动
+1、通过已有的基础镜像启动  
 🐳 Docker 基础镜像地址: `registry.cn-chengdu.aliyuncs.com/mrrobot_public/bogv-base:1.1`
 
 ```docker-compose.yml
