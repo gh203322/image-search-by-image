@@ -187,19 +187,26 @@ networks:
 
 ### API介绍
 
-```python
-llm_model_dict={
-                "chatglm2-6b": {
-                        "local_model_path": "/Users/xxx/Downloads/chatglm2-6b",
-                        "api_base_url": "http://localhost:8888/v1",  # "name"修改为fastchat服务中的"api_base_url"
-                        "api_key": "EMPTY"
-                    },
-                }
-```
+# API Name
+## Description
 
-- 请确认已下载至本地的 Embedding 模型本地存储路径写在 `embedding_model_dict` 对应模型位置，如：
+Provide a brief description of the API and its purpose.
 
+## Endpoint
 
-```shell
-$ streamlit run webui.py
-```
+This section should describe the API endpoint and how to access it. Replace `HTTP Method` with the actual HTTP method (e.g., `GET`, `POST`, `PUT`, `DELETE`), and replace `/api/endpoint` with the actual endpoint URL.
+
+## Parameters
+
+List and describe any parameters that need to be included in the request, such as query parameters or request body parameters. Use a table or bullet points for clarity.
+
+- `param1` (type, required) - Description of the parameter.
+- `param2` (type, optional) - Description of the parameter.
+
+## Request Example
+
+Provide an example of a valid request to the API. Include the HTTP method, endpoint URL, and any request body if applicable.
+
+```http
+GET /api/endpoint?param1=value1&param2=value2
+
