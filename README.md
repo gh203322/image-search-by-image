@@ -421,7 +421,7 @@ POST /api/image/sim/search/base64
 ### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
-| `base64`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
+| `base64`  | String   | Yes      | 图片的base64，可以是带前缀的如：data:image/png;，也可以不带前缀，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
 ### Request Return：  
@@ -449,7 +449,7 @@ fail return
 ```
 
 
-### 8、删除图库图片
+### 8、删除图向量记录
 ```http
 POST /api/image/sim/del
 ```
