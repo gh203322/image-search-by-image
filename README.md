@@ -316,7 +316,13 @@ sucess return
 {
 	"msg": "检索图片成功！",
 	"code": 200,
-	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+	"data": [
+		{
+			"key": "f7342ace9ab836f65248ff7e47cb83ea",
+			"filepath": "/usr/data/app/file/xxx.jpg",
+			"id": 445085583623111723
+		}
+	]
 }
 ```
 fail return
@@ -348,7 +354,13 @@ sucess return
 {
 	"msg": "检索图片成功！",
 	"code": 200,
-	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+	"data": [
+		{
+			"key": "f7342ace9ab836f65248ff7e47cb83ea",
+			"filepath": "/usr/data/app/file/xxx.jpg",
+			"id": 445085583623111723
+		}
+	]
 }
 ```
 fail return
@@ -361,7 +373,7 @@ fail return
 ```
 
 
-### 6、相似图片检索（path方式）
+### 6、相似图片检索（绝对路径的方式）
 ```http
 POST /api/image/sim/search/path
 ```
@@ -380,7 +392,13 @@ sucess return
 {
 	"msg": "检索图片成功！",
 	"code": 200,
-	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+	"data": [
+		{
+			"key": "f7342ace9ab836f65248ff7e47cb83ea",
+			"filepath": "/usr/data/app/file/xxx.jpg",
+			"id": 445085583623111723
+		}
+	]
 }
 ```
 fail return
@@ -412,7 +430,13 @@ sucess return
 {
 	"msg": "检索图片成功！",
 	"code": 200,
-	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+	"data": [
+		{
+			"key": "f7342ace9ab836f65248ff7e47cb83ea",
+			"filepath": "/usr/data/app/file/xxx.jpg",
+			"id": 445085583623111723
+		}
+	]
 }
 ```
 fail return
