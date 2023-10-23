@@ -179,7 +179,7 @@ def img_search_by_url(params: SearchModel):
     if np_embedding is not None and np_embedding.size > 0:
         search_res = MV.search_similar_vectors(MV.EB_TB_NAME, np_embedding.flatten(), params.limit)
         if search_res is not None:
-            return sucess(search_res.__str__(), '检索图片成功！')
+            return sucess(search_res, '检索图片成功！')
     return fail('检索图片失败！')
 
 
@@ -205,7 +205,7 @@ def img_search_by_path(params: SearchModel):
     if np_embedding is not None and np_embedding.size > 0:
         search_res = MV.search_similar_vectors(MV.EB_TB_NAME, np_embedding.flatten(), params.limit)
         if search_res is not None:
-            return sucess(search_res.__str__(), '检索图片成功！')
+            return sucess(search_res, '检索图片成功！')
     return fail('检索图片失败！')
 
 
@@ -234,7 +234,7 @@ def img_search_by_base64(params: SearchModel):
     if np_embedding is not None and np_embedding.size > 0:
         search_res = MV.search_similar_vectors(MV.EB_TB_NAME, np_embedding.flatten(), params.limit)
         if search_res is not None:
-            return sucess(search_res.__str__(), '检索图片成功！')
+            return sucess(search_res, '检索图片成功！')
     return fail('检索图片失败！')
 
 
@@ -260,7 +260,7 @@ async def img_search_by_file(file: UploadFile = File(...), limit: int = Form(Non
     if np_embedding is not None and np_embedding.size > 0:
         search_res = MV.search_similar_vectors(MV.EB_TB_NAME,np_embedding.flatten(),limit)
         if search_res is not None:
-            return sucess(search_res.__str__(), '检索图片成功！')
+            return sucess(search_res, '检索图片成功！')
     return fail('检索图片失败！')
 
 
