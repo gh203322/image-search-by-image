@@ -11,12 +11,10 @@ if not API_PORT:
 
 # 向量数据库地址（必要配置参数）
 MILVUS_HOST  = os.environ.get('MILVUS_HOST')
-MILVUS_HOST = '222.85.214.245'
 # 向量数据库端口
 MILVUS_PORT = os.environ.get('MILVUS_PORT')
 if not MILVUS_PORT:
-    # MILVUS_PORT = 19530
-    MILVUS_PORT = 11088
+    MILVUS_PORT = 19530
 # 向量数据库用户名
 MILVUS_USER  = os.environ.get('MILVUS_USER')
 # 向量数据库密码
