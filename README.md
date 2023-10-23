@@ -185,28 +185,38 @@ networks:
     name: milvus
 ```
 
-### API介绍
+## API介绍
 
-# API Name
-## Description
-
-Provide a brief description of the API and its purpose.
-
-## Endpoint
-
-This section should describe the API endpoint and how to access it. Replace `HTTP Method` with the actual HTTP method (e.g., `GET`, `POST`, `PUT`, `DELETE`), and replace `/api/endpoint` with the actual endpoint URL.
-
-## Parameters
-
-List and describe any parameters that need to be included in the request, such as query parameters or request body parameters. Use a table or bullet points for clarity.
-
-- `param1` (type, required) - Description of the parameter.
-- `param2` (type, optional) - Description of the parameter.
-
-## Request Example
-
-Provide an example of a valid request to the API. Include the HTTP method, endpoint URL, and any request body if applicable.
-
+### API 名称：图片文件上传
 ```http
-GET /api/endpoint?param1=value1&param2=value2
+POST /api/image/sim/add/file
+```
+### 描述
+
+通过formdata的方式上传图片到文件搜索系统.
+
+## 请求参数
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `file`  | string   | Yes      | 文件，必要参数.    |
+| `key`  | string      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
+| `imgPath`  | string  | No      | 图片相对路径或者绝对路径.    |
+
+## 请求返回  
+成功返回
+```http
+{
+	"msg": "存储图片成功！",
+	"code": 200,
+	"data": true
+}
+```
+失败返回
+```http
+{
+	"msg": "存储图片失败！",
+	"code": 500,
+	"data": null
+}
+```
 
