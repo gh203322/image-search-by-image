@@ -21,18 +21,169 @@
 ##  使用
 ### Docker 部署 
 
-🐳 Docker 镜像地址: `registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.0)`
+1、通过已有的基础镜像启动
+🐳 Docker 基础镜像地址: `registry.cn-chengdu.aliyuncs.com/mrrobot_public/bogv-base:1.1`
 
-```shell
-docker run -d --gpus all -p 80:8501 registry.cn-beijing.aliyuncs.com/chatchat/chatchat:0.2.0
+```docker-compose.yml
+version: '3.5'
+
+services:
+  etcd:
+    container_name: milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.5
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/etcd:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+
+  minio:
+    container_name: milvus-minio
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/minio:/minio_data
+    command: minio server /minio_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  standalone:
+    container_name: milvus-standalone
+    image: milvusdb/milvus:v2.2.11
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/milvus:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - "etcd"
+      - "minio"
+
+  attu:
+    container_name: milvus-attu
+    image: zilliz/attu:v2.2.6
+    environment:
+      MILVUS_URL: milvus-standalone:19530
+    ports:
+      - "19531:3000"
+    depends_on:
+      - "standalone"
+
+  # API接口
+  bogv:
+    container_name: bogv-api
+    image: registry.cn-chengdu.aliyuncs.com/mrrobot_public/bogv-base:1.1
+    restart: always
+    ports:
+      - "11090:7000"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./:/app
+    environment:
+      - TZ=Asia/Shanghai
+      - MILVUS_HOST=milvus-standalone
+      - MILVUS_PORT=19530
+    working_dir: /app  # 设置容器的工作目录
+    command: sh -c "python main.py"
+    privileged: true
+
+networks:
+  default:
+    name: milvus
 ```
 
-- 该版本镜像大小 `33.9GB`，使用 `v0.2.0`，以 `nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04` 为基础镜像
-- 该版本内置一个 `embedding` 模型：`m3e-large`，内置 `fastchat+chatglm2-6b-32k`
-- 该版本目标为方便一键部署使用，请确保您已经在Linux发行版上安装了NVIDIA驱动程序
-- 请注意，您不需要在主机系统上安装CUDA工具包，但需要安装 `NVIDIA Driver` 以及 `NVIDIA Container Toolkit`，请参考[安装指南](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-- 首次拉取和启动均需要一定时间，首次启动时请参照下图使用 `docker logs -f <container id>` 查看日志
-- 如遇到启动过程卡在 `Waiting..` 步骤，建议使用`docker exec -it <container id> bash` 进入 `/logs/` 目录查看对应阶段日志
+2、通过在线下载依赖的方式构建镜像并启动
+```docker-compose.yml
+version: '3.5'
+
+services:
+  etcd:
+    container_name: milvus-etcd
+    image: quay.io/coreos/etcd:v3.5.5
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/etcd:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+
+  minio:
+    container_name: milvus-minio
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/minio:/minio_data
+    command: minio server /minio_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  standalone:
+    container_name: milvus-standalone
+    image: milvusdb/milvus:v2.2.11
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/milvus:/var/lib/milvus
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    depends_on:
+      - "etcd"
+      - "minio"
+
+  attu:
+    container_name: milvus-attu
+    image: zilliz/attu:v2.2.6
+    environment:
+      MILVUS_URL: milvus-standalone:19530
+    ports:
+      - "19531:3000"
+    depends_on:
+      - "standalone"
+
+  # API接口
+  bogv:
+    container_name: bogv-api
+    image: python:3.7
+    restart: always
+    ports:
+      - "7000:7000"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./:/app
+    environment:
+      - TZ=Asia/Shanghai
+      - MILVUS_HOST=milvus-standalone
+      - MILVUS_PORT=19530
+    working_dir: /app  # 设置容器的工作目录
+    command: sh -c "pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt && python main.py"
+    privileged: true
+
+networks:
+  default:
+    name: milvus
+```
 
 ### API介绍
 
