@@ -205,7 +205,7 @@ POST /api/image/sim/add/file
 ### describes
 通过formdata的方式上传图片到文件搜索系统.
 
-### request params
+### request params（Content-Type:multipart/form-data;）
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `file`  | File   | Yes      | 文件，必要参数.    |
