@@ -74,7 +74,7 @@ class OperateModel(BaseModel):
 参数：
     file：   图片的文件流
 """
-@app.post("/image/sim/add/file")
+@app.post("/api/image/sim/add/file")
 async def img_add_with_file(file: UploadFile = File(...), key: str = Form(None), imgPath: str = Form(None)):
 
     # 检查文件扩展名以确保它是图像文件
@@ -104,7 +104,7 @@ async def img_add_with_file(file: UploadFile = File(...), key: str = Form(None),
 参数：
     url：   图片的url
 """
-@app.post("/image/sim/add/url")
+@app.post("/api/image/sim/add/url")
 def img_add_with_url(params: UploadModel):
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.url).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
@@ -133,7 +133,7 @@ def img_add_with_url(params: UploadModel):
 参数：
     path：   图片的路径
 """
-@app.post("/image/sim/add/path")
+@app.post("/api/image/sim/add/path")
 def img_add_with_path(params: UploadModel):
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.path).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
@@ -163,7 +163,7 @@ def img_add_with_path(params: UploadModel):
     url：   图片url链接
     limit:  返回的相似图片数量
 """
-@app.post("/image/sim/search/url")
+@app.post("/api/image/sim/search/url")
 def img_search_by_url(params: SearchModel):
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.url).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
@@ -189,7 +189,7 @@ def img_search_by_url(params: SearchModel):
     path：   图片文件路径（同一台机器的绝对路径）
     limit:  返回的相似图片数量
 """
-@app.post("/image/sim/search/path")
+@app.post("/api/image/sim/search/path")
 def img_search_by_path(params: SearchModel):
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.path).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
@@ -215,7 +215,7 @@ def img_search_by_path(params: SearchModel):
     base64：   图片的base64数据
     limit:  返回的相似图片数量
 """
-@app.post("/image/sim/search/base64")
+@app.post("/api/image/sim/search/base64")
 def img_search_by_base64(params: SearchModel):
 
     # 检查是否包含前缀
@@ -244,7 +244,7 @@ def img_search_by_base64(params: SearchModel):
     file：   图片的文件流
     limit:  返回的相似图片数量
 """
-@app.post("/image/sim/search/file")
+@app.post("/api/image/sim/search/file")
 async def img_search_by_file(file: UploadFile = File(...), limit: int = Form(None)):
     # 检查文件扩展名以确保它是图像文件
     if not file.filename.lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
@@ -269,7 +269,7 @@ async def img_search_by_file(file: UploadFile = File(...), limit: int = Form(Non
 参数：
     id：   图数据库ID，多个用逗号分隔
 """
-@app.post("/image/sim/del")
+@app.post("/api/image/sim/del")
 def img_search_del(params: OperateModel):
     # 检查文件扩展名以确保它是图像文件
     if not params.id:
