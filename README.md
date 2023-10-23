@@ -317,11 +317,11 @@ sucess return
 	"msg": "检索图片成功！",
 	"code": 200,
 	"data": [
-		{
-			"key": "f7342ace9ab836f65248ff7e47cb83ea",
-			"filepath": "/usr/data/app/file/xxx.jpg",
-			"id": 445085583623111723
-		}
+            {
+		"key": "f7342ace9ab836f65248ff7e47cb83ea",
+		"filepath": "/usr/data/app/file/xxx.jpg",
+		"id": 445085583623111723
+            }
 	]
 }
 ```
@@ -355,11 +355,11 @@ sucess return
 	"msg": "检索图片成功！",
 	"code": 200,
 	"data": [
-		{
-			"key": "f7342ace9ab836f65248ff7e47cb83ea",
-			"filepath": "/usr/data/app/file/xxx.jpg",
-			"id": 445085583623111723
-		}
+            {
+		"key": "f7342ace9ab836f65248ff7e47cb83ea",
+		"filepath": "/usr/data/app/file/xxx.jpg",
+		"id": 445085583623111723
+            }
 	]
 }
 ```
@@ -393,11 +393,11 @@ sucess return
 	"msg": "检索图片成功！",
 	"code": 200,
 	"data": [
-		{
-			"key": "f7342ace9ab836f65248ff7e47cb83ea",
-			"filepath": "/usr/data/app/file/xxx.jpg",
-			"id": 445085583623111723
-		}
+            {
+		"key": "f7342ace9ab836f65248ff7e47cb83ea",
+		"filepath": "/usr/data/app/file/xxx.jpg",
+		"id": 445085583623111723
+            }
 	]
 }
 ```
@@ -431,11 +431,11 @@ sucess return
 	"msg": "检索图片成功！",
 	"code": 200,
 	"data": [
-		{
-			"key": "f7342ace9ab836f65248ff7e47cb83ea",
-			"filepath": "/usr/data/app/file/xxx.jpg",
-			"id": 445085583623111723
-		}
+            {
+		"key": "f7342ace9ab836f65248ff7e47cb83ea",
+		"filepath": "/usr/data/app/file/xxx.jpg",
+		"id": 445085583623111723
+            }
 	]
 }
 ```
