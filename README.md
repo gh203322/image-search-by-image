@@ -187,23 +187,22 @@ networks:
 
 ## API介绍
 
-### API 名称：图片文件上传
+### API name：图片文件上传
 ```http
 POST /api/image/sim/add/file
 ```
-### 描述
-
+### describes
 通过formdata的方式上传图片到文件搜索系统.
 
-## 请求参数
+### request params
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
-| `file`  | string   | Yes      | 文件，必要参数.    |
-| `key`  | string      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
-| `imgPath`  | string  | No      | 图片相对路径或者绝对路径.    |
+| `file`  | File   | Yes      | 文件，必要参数.    |
+| `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
+| `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-## 请求返回  
-成功返回
+### 请求返回  
+sucess return
 ```http
 {
 	"msg": "存储图片成功！",
@@ -211,7 +210,7 @@ POST /api/image/sim/add/file
 	"data": true
 }
 ```
-失败返回
+fail return
 ```http
 {
 	"msg": "存储图片失败！",
