@@ -202,17 +202,17 @@ IP:19531
 ```http
 POST /api/image/sim/add/file
 ```
-### describes
+### Description：
 通过formdata的方式上传图片到文件搜索系统.
 
-### request params(Content-Type:multipart/form-data;)
+### Request Params：(Content-Type:multipart/form-data;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `file`  | File   | Yes      | 文件，必要参数.    |
 | `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
 | `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-### request return   
+### Request Return：   
 sucess return
 ```http
 {
@@ -235,17 +235,17 @@ fail return
 ```http
 POST /api/image/sim/add/url
 ```
-### describes  
+### Description：  
 通过图片url地址的方式上传图片到文件搜索系统.
 
-### request params(Content-Type:application/json;)
+### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `url`  | String   | Yes      | 图片url地址，必要参数.    |
 | `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
 | `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-### request return  
+### Request Return：  
 sucess return
 ```http
 {
@@ -268,17 +268,17 @@ fail return
 ```http
 POST /api/image/sim/add/path
 ```
-### describes
+### Description：
 通过图片绝对路径的方式上传图片到文件搜索系统，通过容器启动时可以增加与应用系统共同的文件存储路径映射.
 
-### request params(Content-Type:application/json;)
+### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
 | `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
 | `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
 
-### request return    
+### Request Return：    
 sucess return
 ```http
 {
@@ -301,16 +301,16 @@ fail return
 ```http
 POST /api/image/sim/search/file
 ```
-### describes
+### Description：
 通过将目标文件上传到文件搜索系统的方式进行相似图片的检索.
 
-### request params(Content-Type:multipart/form-data;)
+### Request Params：(Content-Type:multipart/form-data;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `file`  | File   | Yes      | 待搜索的目标图片文件，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### request return  
+### Request Return：  
 sucess return
 ```http
 {
@@ -339,16 +339,16 @@ fail return
 ```http
 POST /api/image/sim/search/url
 ```
-### describes
+### Description：
 通过图片的url地址方式给到搜索系统进行相似图片的检索.
 
-### request params(Content-Type:application/json;)
+### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `url`  | String   | Yes      | 图片的url地址，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### request return  
+### Request Return：  
 sucess return
 ```http
 {
@@ -377,16 +377,16 @@ fail return
 ```http
 POST /api/image/sim/search/path
 ```
-### describes
+### Description：
 通过图片的url地址方式给到搜索系统进行相似图片的检索，通过容器启动时可以增加与应用系统共同的文件存储路径映射.
 
-### request params(Content-Type:application/json;)
+### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### request return  
+### Request Return：  
 sucess return
 ```http
 {
@@ -415,16 +415,16 @@ fail return
 ```http
 POST /api/image/sim/search/base64
 ```
-### describes
+### Description：
 通过图片的base64给到搜索系统进行相似图片的检索.
 
-### request params(Content-Type:application/json;)
+### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `base64`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
 | `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
 
-### request return  
+### Request Return：  
 sucess return
 ```http
 {
@@ -453,15 +453,15 @@ fail return
 ```http
 POST /api/image/sim/del
 ```
-### describes
+### Description：
 通过通过图片id删除图向量数据库中的图片记录.
 
-### request params(Content-Type:application/json;)
+### Request Params：(Content-Type:application/json;)
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `id`  | String   | Yes      | 检索返回的图片的ID字段，多个ID用英文逗号分隔，如：1,2,3，必要参数.    |
 
-### request return  
+### Request Return：  
 sucess return
 ```http
 {
