@@ -187,7 +187,7 @@ networks:
 
 ## API介绍
 
-### API name：图片文件上传
+### 1、图片文件上传（文件流方式）
 ```http
 POST /api/image/sim/add/file
 ```
@@ -219,3 +219,227 @@ fail return
 }
 ```
 
+
+### 2、图片文件上传（url方式）
+```http
+POST /api/image/sim/add/url
+```
+### describes
+通过图片url地址的方式上传图片到文件搜索系统.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `url`  | String   | Yes      | 图片url地址，必要参数.    |
+| `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
+| `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "存储图片成功！",
+	"code": 200,
+	"data": true
+}
+```
+fail return
+```http
+{
+	"msg": "存储图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+
+### 3、图片文件上传（path方式）
+```http
+POST /api/image/sim/add/path
+```
+### describes
+通过图片绝对路径的方式上传图片到文件搜索系统，通过容器启动时可以在docker-compose中增加与应用系统共同的路径映射.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
+| `key`  | String      | No       | 外部系统主键或者md5，用于数据返回后可以通过这个字段查找外部系统记录，不传的情况下默认计算md5作为key.    |
+| `imgPath`  | String  | No      | 图片相对路径或者绝对路径.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "存储图片成功！",
+	"code": 200,
+	"data": true
+}
+```
+fail return
+```http
+{
+	"msg": "存储图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+
+### 4、相似图片检索（文件流方式）
+```http
+POST /api/image/sim/search/file
+```
+### describes
+通过将目标文件上传到文件搜索系统的方式进行相似图片的检索.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `file`  | File   | Yes      | 待搜索的目标图片文件，必要参数.    |
+| `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "检索图片成功！",
+	"code": 200,
+	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+}
+```
+fail return
+```http
+{
+	"msg": "检索图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+
+### 5、相似图片检索（url方式）
+```http
+POST /api/image/sim/search/url
+```
+### describes
+通过图片的url地址方式给到搜索系统进行相似图片的检索.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `url`  | String   | Yes      | 图片的url地址，必要参数.    |
+| `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "检索图片成功！",
+	"code": 200,
+	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+}
+```
+fail return
+```http
+{
+	"msg": "检索图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+
+### 6、相似图片检索（path方式）
+```http
+POST /api/image/sim/search/path
+```
+### describes
+通过图片的url地址方式给到搜索系统进行相似图片的检索，通过容器启动时可以在docker-compose中增加与应用系统共同的路径映射.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
+| `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "检索图片成功！",
+	"code": 200,
+	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+}
+```
+fail return
+```http
+{
+	"msg": "检索图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+
+### 7、相似图片检索（base64方式）
+```http
+POST /api/image/sim/search/base64
+```
+### describes
+通过图片的base64给到搜索系统进行相似图片的检索.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `base64`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
+| `limit`  | Int      | No       | 按照相似度返回的top-n条数据，不传默认10条.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "检索图片成功！",
+	"code": 200,
+	"data": "[{'id': 445085583623111713, 'key': 'a2adfb7313f16a1779ce8fef14bc6129', 'filepath': '/usr/data/app/file/xxx.jpg'}]"
+}
+```
+fail return
+```http
+{
+	"msg": "检索图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+
+### 8、删除图库图片
+```http
+POST /api/image/sim/del
+```
+### describes
+通过通过图片id删除图向量数据库中的图片记录.
+
+### request params
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `id`  | String   | Yes      | 检索返回的图片的ID字段，多个ID用英文逗号分隔，如：1,2,3，必要参数.    |
+
+### 请求返回  
+sucess return
+```http
+{
+	"msg": "删除图片成功！",
+	"code": 200,
+	"data": 3  #成功删除的图片数量
+}
+```
+fail return
+```http
+{
+	"msg": "删除图片失败！",
+	"code": 500,
+	"data": null
+}
+```
