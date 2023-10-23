@@ -253,12 +253,12 @@ fail return
 ```
 
 
-### 3、图片文件上传（path方式）
+### 3、图片文件上传（绝对路径的方式）
 ```http
 POST /api/image/sim/add/path
 ```
 ### describes
-通过图片绝对路径的方式上传图片到文件搜索系统，通过容器启动时可以在docker-compose中增加与应用系统共同的路径映射.
+通过图片绝对路径的方式上传图片到文件搜索系统，通过容器启动时可以增加与应用系统共同的文件存储路径映射.
 
 ### request params
 | Parameter | Type     | Required | Description               |
@@ -355,7 +355,7 @@ fail return
 POST /api/image/sim/search/path
 ```
 ### describes
-通过图片的url地址方式给到搜索系统进行相似图片的检索，通过容器启动时可以在docker-compose中增加与应用系统共同的路径映射.
+通过图片的url地址方式给到搜索系统进行相似图片的检索，通过容器启动时可以增加与应用系统共同的文件存储路径映射.
 
 ### request params
 | Parameter | Type     | Required | Description               |
