@@ -1,14 +1,10 @@
-<div style="text-align: center;">
-  <p align="center" style="font-size: 32px; font-weight: bold;">🌘 一种基于图向量和向量数据库的图片搜索引擎。</p>
-</div>
-
 ![](img/logo.png)
 
 --- 
 
 ## 🚨介绍
 
-💡 一种利用图片特征向量及向量数据库进行向量相似检索的技术。
+💡 一种利用图片特征向量及向量数据库作为基础，🌘使用向量相似检索技术实现图片搜索的技术。
 
 📺 实现原理
 
