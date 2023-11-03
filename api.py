@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form, Header
 from fastapi.responses import JSONResponse
+from typing import Union
 from typing import Optional
+from typing_extensions import Annotated
 from pydantic import BaseModel
 import base64
 import setting as ST
@@ -67,6 +69,7 @@ class SearchModel(BaseModel):
 # 操作参数接收类，继承自 BaseModel 的类
 class OperateModel(BaseModel):
     id: Optional[str] = None
+    key: Optional[str] = None
 
 
 """
@@ -75,12 +78,16 @@ class OperateModel(BaseModel):
     file：   图片的文件流
 """
 @app.post("/api/image/sim/add/file")
-async def img_add_with_file(file: UploadFile = File(...), key: str = Form(None), imgPath: str = Form(None)):
+async def img_add_with_file(file: UploadFile = File(...),
+                            key: str = Form(None),
+                            imgPath: str = Form(None),
+                            token: Annotated[Union[str, None], Header()] = None):
 
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not file.filename.lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
         return fail("错误！只支持以下格式的图像："+",".join(ST.IMAGE_SUFFIXS))
-
     # 获取图片特征向量
     file_bytes = await file.read()
     np_embedding = FT.get_img_embedding(file_bytes)
@@ -105,7 +112,11 @@ async def img_add_with_file(file: UploadFile = File(...), key: str = Form(None),
     url：   图片的url
 """
 @app.post("/api/image/sim/add/url")
-def img_add_with_url(params: UploadModel):
+def img_add_with_url(params: UploadModel,
+                     token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.url).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
         return fail("错误！只支持以下格式的图像：" + ",".join(ST.IMAGE_SUFFIXS))
@@ -134,7 +145,11 @@ def img_add_with_url(params: UploadModel):
     path：   图片的路径
 """
 @app.post("/api/image/sim/add/path")
-def img_add_with_path(params: UploadModel):
+def img_add_with_path(params: UploadModel,
+                      token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.path).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
         return fail("错误！只支持以下格式的图像：" + ",".join(ST.IMAGE_SUFFIXS))
@@ -164,7 +179,11 @@ def img_add_with_path(params: UploadModel):
     limit:  返回的相似图片数量
 """
 @app.post("/api/image/sim/search/url")
-def img_search_by_url(params: SearchModel):
+def img_search_by_url(params: SearchModel,
+                      token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.url).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
         return fail("错误！只支持以下格式的图像：" + ",".join(ST.IMAGE_SUFFIXS))
@@ -190,7 +209,11 @@ def img_search_by_url(params: SearchModel):
     limit:  返回的相似图片数量
 """
 @app.post("/api/image/sim/search/path")
-def img_search_by_path(params: SearchModel):
+def img_search_by_path(params: SearchModel,
+                       token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not UT.get_file_name_with_suffix(params.path).lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
         return fail("错误！只支持以下格式的图像：" + ",".join(ST.IMAGE_SUFFIXS))
@@ -216,8 +239,11 @@ def img_search_by_path(params: SearchModel):
     limit:  返回的相似图片数量
 """
 @app.post("/api/image/sim/search/base64")
-def img_search_by_base64(params: SearchModel):
+def img_search_by_base64(params: SearchModel,
+                         token: Annotated[Union[str, None], Header()] = None):
 
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查是否包含前缀
     if params.base64 and params.base64.startswith("data:image"):
         # 去除前缀
@@ -245,7 +271,12 @@ def img_search_by_base64(params: SearchModel):
     limit:  返回的相似图片数量
 """
 @app.post("/api/image/sim/search/file")
-async def img_search_by_file(file: UploadFile = File(...), limit: int = Form(None)):
+async def img_search_by_file(file: UploadFile = File(...),
+                             limit: int = Form(None),
+                             token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not file.filename.lower().endswith(tuple(ST.IMAGE_SUFFIXS)):
         return fail("错误！只支持以下格式的图像：" + ",".join(ST.IMAGE_SUFFIXS))
@@ -269,14 +300,43 @@ async def img_search_by_file(file: UploadFile = File(...), limit: int = Form(Non
 参数：
     id：   图数据库ID，多个用逗号分隔
 """
-@app.post("/api/image/sim/del")
-def img_search_del(params: OperateModel):
+@app.post("/api/image/sim/del/id")
+def img_search_del(params: OperateModel,
+                   token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
     if not params.id:
-        return fail("错误！主键不能为空")
+        return fail("错误！ID不能为空")
 
     # 删除数据
-    delete_count = MV.delete_batch(MV.EB_TB_NAME,UT.split_comma_separated_string(params.id))
+    delete_count = MV.delete_by_id_batch(MV.EB_TB_NAME,UT.split_comma_separated_string(params.id))
+    if delete_count>0:
+        return sucess(delete_count,'删除图片成功！')
+    return fail('删除图片失败！')
+
+
+"""
+删除图片-通过图片key
+参数：
+    key：   外部系统唯一标识或文件md5，多个用逗号分隔
+"""
+@app.post("/api/image/sim/del/key")
+def img_search_del(params: OperateModel,
+                   token: Annotated[Union[str, None], Header()] = None):
+
+    if ST.TOKEN and ST.TOKEN != token:
+        return fail("请求非法")
+    # 检查文件扩展名以确保它是图像文件
+    if not params.id:
+        return fail("错误！KEY不能为空")
+
+    # 获取token并校验token
+
+
+    # 删除数据
+    delete_count = MV.delete_by_key_batch(MV.EB_TB_NAME,UT.split_comma_separated_string(params.key))
     if delete_count>0:
         return sucess(delete_count,'删除图片成功！')
     return fail('删除图片失败！')
