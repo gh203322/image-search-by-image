@@ -91,6 +91,8 @@ services:
       - TZ=Asia/Shanghai
       - MILVUS_HOST=milvus-standalone
       - MILVUS_PORT=19530
+      # 接口校验的TOKEN，不配置不进行校验
+      # TOKEN = 
     working_dir: /app  # 设置容器的工作目录
     command: sh -c "python main.py"
     privileged: true
@@ -172,6 +174,8 @@ services:
       - TZ=Asia/Shanghai
       - MILVUS_HOST=milvus-standalone
       - MILVUS_PORT=19530
+      # 接口校验的TOKEN，不配置不进行校验
+      # TOKEN = 
     working_dir: /app  # 设置容器的工作目录
     command: sh -c "pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt && python main.py"
     privileged: true
@@ -202,6 +206,12 @@ POST /api/image/sim/add/file
 通过formdata的方式上传图片到文件搜索系统.
 
 ### Request Params：(Content-Type:multipart/form-data;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `file`  | File   | Yes      | 文件，必要参数.    |
@@ -235,6 +245,12 @@ POST /api/image/sim/add/url
 通过图片url地址的方式上传图片到文件搜索系统.
 
 ### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `url`  | String   | Yes      | 图片url地址，必要参数.    |
@@ -268,6 +284,12 @@ POST /api/image/sim/add/path
 通过图片绝对路径的方式上传图片到文件搜索系统，通过容器启动时可以增加与应用系统共同的文件存储路径映射.
 
 ### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
@@ -301,6 +323,12 @@ POST /api/image/sim/search/file
 通过将目标文件上传到文件搜索系统的方式进行相似图片的检索.
 
 ### Request Params：(Content-Type:multipart/form-data;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `file`  | File   | Yes      | 待搜索的目标图片文件，必要参数.    |
@@ -339,6 +367,12 @@ POST /api/image/sim/search/url
 通过图片的url地址方式给到搜索系统进行相似图片的检索.
 
 ### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `url`  | String   | Yes      | 图片的url地址，必要参数.    |
@@ -377,6 +411,12 @@ POST /api/image/sim/search/path
 通过图片的url地址方式给到搜索系统进行相似图片的检索，通过容器启动时可以增加与应用系统共同的文件存储路径映射.
 
 ### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `path`  | String   | Yes      | 图片的绝对路径地址，必要参数.    |
@@ -415,6 +455,12 @@ POST /api/image/sim/search/base64
 通过图片的base64给到搜索系统进行相似图片的检索.
 
 ### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `base64`  | String   | Yes      | 图片的base64，可以是带前缀的如：data:image/png;，也可以不带前缀，必要参数.    |
@@ -445,17 +491,59 @@ fail return
 ```
 
 
-### 8、删除图向量记录
+### 8、删除图向量记录（通过图数据库ID）
 ```http
-POST /api/image/sim/del
+POST /api/image/sim/del/id
 ```
 ### Description：
-通过通过图片id删除图向量数据库中的图片记录.
+通过图片id删除图向量数据库中的图片记录.
 
 ### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
 | Parameter | Type     | Required | Description               |
 |-----------|----------|----------|---------------------------|
 | `id`  | String   | Yes      | 检索返回的图片的ID字段，多个ID用英文逗号分隔，如：1,2,3，必要参数.    |
+
+### Request Return：  
+sucess return
+```http
+{
+	"msg": "删除图片成功！",
+	"code": 200,
+	"data": 3  #成功删除的图片数量
+}
+```
+fail return
+```http
+{
+	"msg": "删除图片失败！",
+	"code": 500,
+	"data": null
+}
+```
+
+### 9、删除图向量记录
+```http
+POST /api/image/sim/del/key
+```
+### Description：
+通过外部系统ID或文件MD5删除图向量数据库中的图片记录.
+
+### Request Params：(Content-Type:application/json;)
+请求头：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `token`  | String   | No      | token，非必填，当环境变量中配置了TOKEN这个变量时，才会开启校验.    |  
+
+请求体：
+| Parameter | Type     | Required | Description               |
+|-----------|----------|----------|---------------------------|
+| `key`  | String   | Yes      | 外部系统ID或文件MD5，多个KEY用英文逗号分隔，如：1,2,3，必要参数.    |
 
 ### Request Return：  
 sucess return
