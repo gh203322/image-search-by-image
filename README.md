@@ -562,3 +562,7 @@ fail return
 	"data": null
 }
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=gh203322/bogv-image-search-engine&type=Date)](https://star-history.com/#gh203322/bogv-image-search-engine&Date)
