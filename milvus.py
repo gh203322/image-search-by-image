@@ -11,6 +11,7 @@ from pymilvus import (
 
 import setting as ST
 
+
 # 图片向量库名称(表名)
 EB_TB_NAME = 'images'
 # 图片向量库维度
@@ -152,9 +153,26 @@ def delete(table_name, id):
     table_name：   表名称
     id:            主键
 """
-def delete_batch(table_name, ids):
+def delete_by_id_batch(table_name, ids):
     try:
         exp = 'id in ['+','.join(ids)+']'
+        # 获取表
+        collection = Collection(table_name)
+        mr = collection.delete(exp)
+        return mr.delete_count
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+
+
+"""
+删除数据（多条）
+参数：
+    table_name：   表名称
+    key:            外部系统唯一标识
+"""
+def delete_by_key_batch(table_name, keys):
+    try:
+        exp = 'key in ['+','.join(keys)+']'
         # 获取表
         collection = Collection(table_name)
         mr = collection.delete(exp)
