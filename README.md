@@ -491,7 +491,7 @@ fail return
 ```
 
 
-### 8、删除图向量记录（通过图数据库ID）
+### 8、删除图向量记录
 ```http
 POST /api/image/sim/del/id
 ```
