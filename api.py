@@ -329,7 +329,7 @@ def img_search_del(params: OperateModel,
     if ST.TOKEN and ST.TOKEN != token:
         return fail("请求非法")
     # 检查文件扩展名以确保它是图像文件
-    if not params.id:
+    if not params.key:
         return fail("错误！KEY不能为空")
 
     # 获取token并校验token
