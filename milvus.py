@@ -95,6 +95,7 @@ def insert_data(table_name, data):
             return False
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+    return 0
 
 
 """
@@ -128,6 +129,7 @@ def search_similar_vectors(table_name, query_vector, limit):
         return res_datas
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+    return []
 
 
 """
@@ -145,6 +147,7 @@ def delete(table_name, id):
         return mr.delete_count
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+    return 0
 
 
 """
@@ -162,23 +165,35 @@ def delete_by_id_batch(table_name, ids):
         return mr.delete_count
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+    return 0
 
 
 """
 删除数据（多条）
 参数：
-    table_name：   表名称
+    table_name：    表名称
     key:            外部系统唯一标识
 """
 def delete_by_key_batch(table_name, keys):
     try:
-        exp = 'key in ['+','.join(keys)+']'
+        exp = "key in ["+", ".join(f"'{s}'" for s in keys)+"]"
         # 获取表
         collection = Collection(table_name)
-        mr = collection.delete(exp)
-        return mr.delete_count
+        # 先通过KEY查询主键ID
+        idAry = collection.query(
+            expr=exp,
+            offset=0,
+            limit=1000, # 默认一次最多批量删除1000条
+            output_fields=["id"],
+        )
+        if len(idAry) > 0:
+            ids = []
+            for j in idAry:
+                ids.append(str(j['id']))
+            return delete_by_id_batch(table_name,ids)
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+    return 0
 
 
 """
