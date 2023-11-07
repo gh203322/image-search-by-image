@@ -5,16 +5,16 @@ import os
 
 # 程序配置
 # 应用启动端口
-API_PORT  = os.environ.get('API_PORT')
+API_PORT = os.environ.get('API_PORT')
 if not API_PORT:
     API_PORT = 7000
-
+TOKEN = os.environ.get('TOKEN')
 # 向量数据库地址（必要配置参数）
 MILVUS_HOST  = os.environ.get('MILVUS_HOST')
 # 向量数据库端口
 MILVUS_PORT = os.environ.get('MILVUS_PORT')
 if not MILVUS_PORT:
-    MILVUS_PORT = 19530
+    MILVUS_PORT = 11088
 # 向量数据库用户名
 MILVUS_USER  = os.environ.get('MILVUS_USER')
 # 向量数据库密码
