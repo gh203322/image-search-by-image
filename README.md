@@ -17,7 +17,7 @@
 ##  🚀使用
 ### Docker 部署 
 
-1、通过已有的基础镜像启动  
+1、通过已有的基础镜像启动（这种方式会自动安装mivus数据库，API应用依赖的包已经包含在bogv-base镜像之中，可以一键启动）  
 🐳 Docker 基础镜像地址: `registry.cn-chengdu.aliyuncs.com/mrrobot_public/bogv-base:1.1`
 
 ```docker-compose.yml
@@ -102,7 +102,7 @@ networks:
     name: milvus
 ```
 
-2、通过在线下载依赖的方式构建镜像并启动
+2、通过在线下载依赖的方式构建镜像并启动（这种方式会自动安装mivus数据库，API应用依赖会在容器启动过程中在线下载，依赖安装好之后才可以正常启动）
 ```docker-compose.yml
 version: '3.5'
 
