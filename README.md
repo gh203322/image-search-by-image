@@ -491,12 +491,12 @@ fail return
 ```
 
 
-### 8、删除图向量记录
+### 8、删除图向量记录（Milvus ID）
 ```http
 POST /api/image/sim/del/id
 ```
 ### Description：
-通过图片id删除图向量数据库中的图片记录.
+通过milvus内部id删除图向量数据库中的图片记录.
 
 ### Request Params：(Content-Type:application/json;)
 请求头：
@@ -527,7 +527,7 @@ fail return
 }
 ```
 
-### 9、删除图向量记录
+### 9、删除图向量记录（外部系统ID | MD5）
 ```http
 POST /api/image/sim/del/key
 ```
